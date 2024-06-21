@@ -1,6 +1,7 @@
 import obspython as obs
 import requests
 from threading import Thread
+import re
 
 # IP адрес приёмника по умолчанию
 TARGET_IP_PROPERTY = '192.168.25.55'
@@ -40,11 +41,13 @@ def handle_event(event):
         get_preview_scene = obs.obs_frontend_get_current_preview_scene()
         preview_scene = obs.obs_source_get_name(get_preview_scene)
         # Проверка на наличие слова HANDYCAM
-        if TARGET_SCENE_NAME in current_scene:
+        #if TARGET_SCENE_NAME in current_scene:
+        if re.search(f"^{TARGET_SCENE_NAME}*", current_scene):
             # Присваивание переменной color красного цвета
             color = RED_HEX
             #send_color(RED_HEX)
-        elif TARGET_SCENE_NAME in preview_scene:
+        #elif TARGET_SCENE_NAME in preview_scene:
+        elif re.search(f"^{TARGET_SCENE_NAME}*", preview_scene):
             # Присваивание переменной color зелёного цвета
             color = GREEN_HEX
             #send_color(GREEN_HEX)
