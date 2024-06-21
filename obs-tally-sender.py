@@ -35,7 +35,7 @@ def script_defaults(settings):
 
 def handle_event(event):
     global color
-    if event is obs.OBS_FRONTEND_EVENT_SCENE_CHANGED:
+    if (event is obs.OBS_FRONTEND_EVENT_SCENE_CHANGED) or (event is obs.OBS_FRONTEND_EVENT_PREVIEW_SCENE_CHANGED):
         # Получение информации о текущей сцене
         get_current_scene = obs.obs_frontend_get_current_scene()
         current_scene = obs.obs_source_get_name(get_current_scene)
