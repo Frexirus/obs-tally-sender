@@ -18,6 +18,7 @@ def script_properties():
 
     obs.obs_properties_add_text(props, TARGET_IP_PROPERTY, "IP адрес приёмника TALLY", obs.OBS_TEXT_DEFAULT)
     obs.obs_properties_add_text(props, TARGET_SCENE_NAME_PROPERTY, "Начало имени сцены для которой предназначен сигнал", obs.OBS_TEXT_DEFAULT)
+    obs.obs_properties_add_button(props, "", "Проверить подключение", test_connect)
 
     return props
 
@@ -33,6 +34,7 @@ def script_defaults(settings):
     obs.obs_data_set_default_string(settings, TARGET_SCENE_NAME_PROPERTY, 'HANDYCAM')
 
 def handle_event(event):
+    global color
     if event is obs.OBS_FRONTEND_EVENT_SCENE_CHANGED:
         # Получение информации о текущей сцене
         get_current_scene = obs.obs_frontend_get_current_scene()
@@ -63,6 +65,12 @@ def handle_event(event):
         obs.script_log(obs.LOG_INFO, 'CURRENT: ' + current_scene)
         obs.script_log(obs.LOG_INFO, 'PREVIEW: ' + preview_scene)
 
+def test_connect(props, prop):
+    #url = f'http://{TARGET_IP}/set?color={color}'
+    #requests.get(url, timeout=2)
+    th = Thread(target=send_color, args=(color,))
+    th.start()
+
 def send_color(hex_color):
     """Посылка GET запроса с заданным цветом."""
     url = f'http://{TARGET_IP}/set?color={hex_color}'
@@ -71,5 +79,7 @@ def send_color(hex_color):
         requests.get(url, timeout=2)
     except:
         obs.script_log(obs.LOG_INFO, f'Нет связи с приёмником {TARGET_IP}...')
+    else:
+        obs.script_log(obs.LOG_INFO, f'Связь с приёмником {TARGET_IP} установлена...')
 
 obs.obs_frontend_add_event_callback(handle_event)
