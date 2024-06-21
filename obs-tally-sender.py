@@ -35,6 +35,9 @@ def send_color(hex_color):
     """Посылка GET запроса с заданным цветом."""
     url = f'http://{TARGET_IP}/set?color={hex_color}'
     obs.script_log(obs.LOG_INFO, url)
-    requests.get(url)
+    try:
+        requests.get(url, timeout=2)
+    except:
+        obs.script_log(obs.LOG_INFO, 'Нет связи с приёмником...')
 
 obs.obs_frontend_add_event_callback(handle_event)
