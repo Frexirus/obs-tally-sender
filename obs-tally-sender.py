@@ -1,7 +1,7 @@
 import obspython as obs
 import requests
 
-# Настройки сети
+# IP адрес приёмника
 TARGET_IP = '192.168.25.55'
 
 # Цвета в HEX
