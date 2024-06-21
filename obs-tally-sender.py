@@ -17,7 +17,7 @@ def script_properties():
     props = obs.obs_properties_create()
 
     obs.obs_properties_add_text(props, TARGET_IP_PROPERTY, "IP адрес приёмника TALLY", obs.OBS_TEXT_DEFAULT)
-    obs.obs_properties_add_text(props, TARGET_SCENE_NAME_PROPERTY, "Имя сцены для которой предназначен сигнал", obs.OBS_TEXT_DEFAULT)
+    obs.obs_properties_add_text(props, TARGET_SCENE_NAME_PROPERTY, "Начало имени сцены для которой предназначен сигнал", obs.OBS_TEXT_DEFAULT)
 
     return props
 
