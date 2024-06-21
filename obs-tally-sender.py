@@ -34,8 +34,8 @@ def script_defaults(settings):
     obs.obs_data_set_default_string(settings, TARGET_SCENE_NAME_PROPERTY, 'HANDYCAM')
 
 def handle_event(event):
-    global color
     if (event is obs.OBS_FRONTEND_EVENT_SCENE_CHANGED) or (event is obs.OBS_FRONTEND_EVENT_PREVIEW_SCENE_CHANGED):
+        global color
         # Получение информации о текущей сцене
         get_current_scene = obs.obs_frontend_get_current_scene()
         current_scene = obs.obs_source_get_name(get_current_scene)
@@ -70,7 +70,6 @@ def test_connect(props, prop):
     #requests.get(url, timeout=2)
     th = Thread(target=send_color, args=(color,))
     th.start()
-
 def send_color(hex_color):
     """Посылка GET запроса с заданным цветом."""
     url = f'http://{TARGET_IP}/set?color={hex_color}'
