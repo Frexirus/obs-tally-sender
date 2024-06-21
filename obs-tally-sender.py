@@ -1,5 +1,6 @@
 import obspython as obs
 import requests
+from threading import Thread
 
 # IP адрес приёмника
 TARGET_IP = '192.168.25.55'
@@ -20,13 +21,19 @@ def handle_event(event):
         # Проверка на наличие слова HANDYCAM
         if 'HANDYCAM' in current_scene:
             # Посылка запроса с красным цветом
-            send_color(RED_HEX)
+            th = Thread(target=send_color, args=(RED_HEX,))
+            th.start()
+            #send_color(RED_HEX)
         elif 'HANDYCAM' in preview_scene:
             # Посылка запроса с зеленым цветом
-            send_color(GREEN_HEX)
+            th = Thread(target=send_color, args=(GREEN_HEX,))
+            th.start()
+            #send_color(GREEN_HEX)
         else:
             # Посылка запроса с белым цветом
-            send_color(WHITE_HEX)
+            th = Thread(target=send_color, args=(WHITE_HEX,))
+            th.start()
+            #send_color(WHITE_HEX)
 
         obs.script_log(obs.LOG_INFO, 'CURRENT: ' + current_scene)
         obs.script_log(obs.LOG_INFO, 'PREVIEW: ' + preview_scene)
