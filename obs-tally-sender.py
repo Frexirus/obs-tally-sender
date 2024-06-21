@@ -20,21 +20,22 @@ def handle_event(event):
         preview_scene = obs.obs_source_get_name(get_preview_scene)
         # Проверка на наличие слова HANDYCAM
         if 'HANDYCAM' in current_scene:
-            # Посылка запроса с красным цветом
-            th = Thread(target=send_color, args=(RED_HEX,))
-            th.start()
+            # Присваивание переменной color красного цвета
+            color = RED_HEX
             #send_color(RED_HEX)
         elif 'HANDYCAM' in preview_scene:
-            # Посылка запроса с зеленым цветом
-            th = Thread(target=send_color, args=(GREEN_HEX,))
-            th.start()
+            # Присваивание переменной color зелёного цвета
+            color = GREEN_HEX
             #send_color(GREEN_HEX)
         else:
-            # Посылка запроса с белым цветом
-            th = Thread(target=send_color, args=(WHITE_HEX,))
-            th.start()
+            # Присваивание переменной color белого цвета
+            color = WHITE_HEX
             #send_color(WHITE_HEX)
 
+        # Выделенный поток для отправки GET запроса (Что бы не зависал OBS на время выполнения)
+        th = Thread(target=send_color, args=(color,))
+        th.start()
+        # Просто дебагинг (Логирование)
         obs.script_log(obs.LOG_INFO, 'CURRENT: ' + current_scene)
         obs.script_log(obs.LOG_INFO, 'PREVIEW: ' + preview_scene)
 
