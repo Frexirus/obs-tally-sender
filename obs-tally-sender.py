@@ -82,7 +82,6 @@ def handle_event(event):
         # Выполнить при завершении работы скрипта (Закрытие OBS)
         th = Thread(target=send_color, args=('000000',))
         th.start()
-        obs.script_log(obs.LOG_INFO, 'TEST')
 
 
 def test_connect(props, prop):
