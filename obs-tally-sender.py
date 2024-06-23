@@ -31,10 +31,6 @@ def script_properties():
     obs.obs_properties_add_button(props, "", "Проверить подключение", test_connect)
     obs.obs_properties_add_text(props, target_scene_name_property, "Префикс имени сцены для которой предназначен сигнал", obs.OBS_TEXT_DEFAULT)
 
-    obs.obs_properties_add_color(props, "tally^IdleColor", "Idle Color")
-    obs.obs_properties_add_color(props, "tally^PreviewColor", "Queued Color")
-    obs.obs_properties_add_color(props, "tally^ProgramColor", "Live Color")
-
     return props
 
 def script_update(settings):
