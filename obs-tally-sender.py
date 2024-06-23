@@ -1,3 +1,5 @@
+# Автор данного произведения Frexirus. :)
+
 import obspython as obs
 import requests
 from threading import Thread
