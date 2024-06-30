@@ -88,6 +88,7 @@ def handle_event(event):
 def test_connect(props, prop):
     th = Thread(target=send_color, args=(color,))
     th.start()
+
 def send_color(hex_color):
     """Посылка GET запроса с заданным цветом."""
     url = f'http://{target_ip}/set?color={hex_color}'
