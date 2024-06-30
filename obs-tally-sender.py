@@ -44,6 +44,9 @@ def script_defaults(settings):
     obs.obs_data_set_default_string(settings, target_ip_property, '192.168.25.55')
     obs.obs_data_set_default_string(settings, target_scene_name_property, 'TL')
 
+def script_load(settings):
+    obs.obs_frontend_add_event_callback(handle_event)
+
 def handle_event(event):
     if event is obs.OBS_FRONTEND_EVENT_PREVIEW_SCENE_CHANGED:
         global color
@@ -95,5 +98,3 @@ def send_color(hex_color):
         obs.script_log(obs.LOG_INFO, f'Нет связи с приёмником {target_ip}...')
     else:
         obs.script_log(obs.LOG_INFO, f'Связь с приёмником {target_ip} установлена...')
-
-obs.obs_frontend_add_event_callback(handle_event)
